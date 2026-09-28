@@ -1,27 +1,20 @@
 %{
 #include <stdio.h>
 #include <math.h>
-
 #define YYSTYPE double
-
 int yylex(void);
 void yyerror(const char *s);
 %}
-
 %token NUMBER
 %token INC DEC
 %token INVALID
-
 %left '+' '-'
 %left '*' '/' '%'
 %right '^'
-
 %%
-
 input:
     | input line
     ;
-
 line:
       expr '\n'
         {
@@ -36,13 +29,11 @@ line:
             yyerrok;
         }
     ;
-
 expr:
       NUMBER
         {
             $$ = $1;
         }
-
     | expr '+' expr
         {
             $$ = $1 + $3;
@@ -104,9 +95,7 @@ expr:
             $$ = $2;
         }
     ;
-
 %%
-
 void yyerror(const char *s)
 {
     printf("Error: %s\n", s);
@@ -117,8 +106,6 @@ int main()
     printf(" SDT DESK CALCULATOR \n");
     printf("Operators: + - * / %% ^ ++ --\n");
     printf("Press Ctrl+D to exit.\n\n");
-
     yyparse();
-
     return 0;
 }
